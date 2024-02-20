@@ -1,0 +1,54 @@
+﻿@model List<Question>
+@{
+    ViewData["Title"] = "Frequently Asked Questions";
+}
+
+
+<header>
+     <h1 class="bg-info text-white text-center py-5" >@ViewData["Title"]</h1>
+</header>
+<div class="container">
+   <div class="row">
+       <div class=" col-4 col-sm-3">
+           <nav class="navbar list-group">
+               <a class="list-group-item link-primary" asp-controller="Home" asp-action="@(ViewData["Topic"] != null ? "CategoryWithTopic" : "Category")" asp-route-category="General" asp-route-topic="@ViewData["Topic"]">General</a>
+                <a class="list-group-item link-primary" asp-controller="Home" asp-action="@(ViewData["Topic"] != null ? "CategoryWithTopic" : "Category")" asp-route-category="History" asp-route-topic="@ViewData["Topic"]">History</a>
+           </nav>
+       </div>
+       <div class="col-8 col-sm-9">
+            <nav class="navbar navbar-expand-sm bg-none">
+                <div class="container-fluid">
+                    <ul class="navbar-nav nav-tabs">
+                        <li class="nav-item">
+                            <button class="nav-link link-secondary"  asp-controller="Home" asp-action="Index">All FAQs</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link link-secondary" asp-controller="Home" asp-action="@(ViewData["Category"] != null ? "TopicWithCategory" : "Topic")" asp-route-category="@ViewData["Category"]" asp-route-topic="Bootstrap">Bootstrap</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link link-secondary" asp-controller="Home" asp-action="@(ViewData["Category"] != null ? "TopicWithCategory" : "Topic")" asp-route-category="@ViewData["Category"]" asp-route-topic="C#">C#</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link link-secondary" asp-controller="Home" asp-action="@(ViewData["Category"] != null ? "TopicWithCategory" : "Topic")" asp-route-category="@ViewData["Category"]" asp-route-topic="JavaScript">JavaScript</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="list">
+                <ul class="list-group">
+                    @foreach (var question in Model)
+                    {
+                        <li class="list-group-item">
+                            <p><b>@question.QuestionText</b></p>
+                            <p>@question.Answer</p>
+                            <div>
+                                <small class="pe-3">Topic: @question.Topic</small>
+                                <small>Category: @question.Category</small>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+       </div>
+   </div>
+</div>
